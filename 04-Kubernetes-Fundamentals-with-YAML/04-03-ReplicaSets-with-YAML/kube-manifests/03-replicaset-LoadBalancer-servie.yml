@@ -1,12 +1,12 @@
 apiVersion: v1
-kind: Service 
+kind: Service
 metadata:
-  name: replicaset-loadbalancer-service
+  name: myapp-replica-set-lb-service
 spec:
-  type: LoadBalancer # ClusterIp, # NodePort
-  selector:
+  type: LoadBalancer # ClusterIP, # NodePort
+  selector: 
     app: myapp2
-  ports: 
+  ports:
     - name: http
       port: 80 # Service Port
       targetPort: 80 # Container Port

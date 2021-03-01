@@ -8,4 +8,4 @@ spec:
   storageClassName: managed-premium-retain-sc
   resources:
     requests:
-      storage: 5Gi
+      storage: 5Gi      

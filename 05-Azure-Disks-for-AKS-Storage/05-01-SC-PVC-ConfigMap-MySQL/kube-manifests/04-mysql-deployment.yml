@@ -2,35 +2,36 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
-spec: 
+spec:
   replicas: 1
-  selector:
+  selector: # Pod Select Label
     matchLabels:
-      app: mysql
-  strategy:
-    type: Recreate 
-  template: 
-    metadata: 
-      labels: 
-        app: mysql
-    spec: 
+      app: mysql-label
+  strategy: # Strategy for our Deployment. Default is rolling update. we are selectin Recreate type because this is Database
+    type: Recreate
+  template: # Pod Template
+    metadata:
+      name: mysql-pod
+      labels:
+        app: mysql-label
+    spec: # Pod Specification
       containers:
-        - name: mysql
+        - name: mysql-container
           image: mysql:5.6
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: dbpassword11
+          volumeMounts: # Container level resource
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+            - name: usermanagement-dbcreation-script
+              mountPath: /docker-entrypoint-initdb.d
           ports:
             - containerPort: 3306
-              name: mysql    
-          volumeMounts:
-            - name: mysql-persistent-storage
-              mountPath: /var/lib/mysql    
-            - name: usermanagement-dbcreation-script
-              mountPath: /docker-entrypoint-initdb.d #https://hub.docker.com/_/mysql Refer Initializing a fresh instance                                            
-      volumes: 
+              name: mysql
+      volumes: # Pod Spec level resource
         - name: mysql-persistent-storage
-          persistentVolumeClaim:
+          persistentVolumeClaim: 
             claimName: azure-managed-disk-pvc
         - name: usermanagement-dbcreation-script
           configMap:

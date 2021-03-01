@@ -1,15 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-backend-service ## VERY VERY IMPORTANT - NGINX PROXYPASS needs this name
+  name: my-backend-service # very very important -nginx proxypass needs this name
   labels:
-    app: backend-restapp
-    tier: backend   
+    app: my-backend-svc
 spec:
-  #type: ClusterIP is a default service in k8s
+  #type: ClusterIP # ClusterIP is default service in Kubernetes
   selector:
     app: backend-restapp
   ports:
-    - name: http
-      port: 8080 # ClusterIP Service Port
+    - name: http # Service Port Name
+      port: 8080 # Cluster IP Service Port
       targetPort: 8080 # Container Port

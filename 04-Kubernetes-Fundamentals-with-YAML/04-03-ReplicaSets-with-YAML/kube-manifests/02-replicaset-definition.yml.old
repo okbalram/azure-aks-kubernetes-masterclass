@@ -1,20 +1,21 @@
 apiVersion: apps/v1
-kind: ReplicaSet
-metadata: # Dictionary
+kind: ReplicaSet 
+metadata: #Dictionary
   name: myapp2-rs
-spec:
+spec: # Dictionary
   replicas: 3
   selector:
     matchLabels:
       app: myapp2
-  template: # Template is for Pod definition, here Pod apiVersion and kind type not required
+  template:  
     metadata: # Dictionary
-      name: myapp2
+      name: myapp2-pod
       labels: # Dictionary
-        app: myapp2 # Key Value pair
+        app: myapp2  # Key value paids
     spec:
       containers: # List
         - name: myapp2-container
           image: stacksimplify/kubenginx:2.0.0
-          ports:
-            - containerPort: 80
+          ports: 
+            - containerPort: 80  
+    
